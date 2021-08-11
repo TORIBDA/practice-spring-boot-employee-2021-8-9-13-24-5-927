@@ -4,6 +4,7 @@ import com.thoughtworks.springbootemployee.model.Company;
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
 import java.util.LinkedList;
@@ -49,5 +50,10 @@ public class CompanyService {
                 .skip(skipValue)
                 .limit(pageSize)
                 .collect(Collectors.toList());
+    }
+
+    public void addCompany(Company company) {
+        Company companyToBeAdded = new Company(companyRepository.getCompanies().size() + 1, company.getName());
+        companyRepository.getCompanies().add(companyToBeAdded);
     }
 }

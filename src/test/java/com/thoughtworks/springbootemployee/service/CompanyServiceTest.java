@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
 public class CompanyServiceTest {
@@ -95,5 +96,23 @@ public class CompanyServiceTest {
 
         //Then
         assertEquals(expectedCompanies, actualCompanies);
+    }
+
+    @Test
+    public void should_add_company_when_added_company_given_company() {
+        //Given
+        List<Company> companies = new ArrayList<>();
+        Company expectedCompany = new Company(companyService.getAllCompanies().size()+1, "DIVEDSC");
+        Mockito.when(companyRepository.getCompanies()).thenReturn(companies);
+
+        //When
+        companyService.addCompany(expectedCompany);
+        List<Company> actualEmployee = companyService.getAllCompanies();
+
+        //Then
+        assertEquals(expectedCompany, actualEmployee.stream()
+                .filter(company -> company.equals(expectedCompany))
+                .findFirst()
+                .orElse(null));
     }
 }
