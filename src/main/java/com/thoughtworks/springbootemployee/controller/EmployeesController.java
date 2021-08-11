@@ -26,13 +26,9 @@ public class EmployeesController {
         return employeeService.findById(employeeId);
     }
 
-    @GetMapping(params = {"page", "pageSize"})
-    public List<Employee> getEmployeesByPage(@RequestParam(name = "page", required = true) Integer page, @RequestParam(name = "pageSize", required = true) Integer pageSize) {
-        int skipvalue = (page - 1) * pageSize;
-        return employees.stream()
-                .skip(skipvalue)
-                .limit(pageSize)
-                .collect(Collectors.toList());
+    @GetMapping(params = {"page", "pagesize"})
+    public List<Employee> getEmployeesByPage(@RequestParam(name = "page", required = true) Integer page, @RequestParam(name = "pagesize", required = true) Integer pageSize) {
+        return employeeService.getEmployeesByPage(page, pageSize);
     }
 
     @GetMapping(params = {"gender"})

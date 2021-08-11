@@ -83,6 +83,32 @@ public class EmployeeServiceTest {
     }
 
     @Test
+    public void should_return_employees_by_page_when_find_employee_by_page_given_page_index_page_size() {
+        //Given
+        List<Employee> employees = new ArrayList<>();
+        employees.add(new Employee(employeeService.getAllEmployees().size() + 1, "Joanna", 23, "female", 1000));
+        employees.add(new Employee(employeeService.getAllEmployees().size() + 1, "Deb", 23, "male", 1000));
+        employees.add(new Employee(employeeService.getAllEmployees().size() + 1, "Joanna", 23, "female", 1000));
+        employees.add(new Employee(employeeService.getAllEmployees().size() + 1, "Debi", 23, "male", 1000));
+        employees.add(new Employee(employeeService.getAllEmployees().size() + 1, "Joanna", 23, "female", 1000));
+        employees.add(new Employee(employeeService.getAllEmployees().size() + 1, "Debids", 23, "male", 1000));
+        employees.add(new Employee(employeeService.getAllEmployees().size() + 1, "Debids", 23, "male", 1000));
+        int pageIndex = 2;
+        int pageSize = 5;
+        List<Employee> expectedEmployees =  employees.stream()
+                .skip((pageIndex - 1) * pageSize)
+                .limit(pageSize)
+                .collect(Collectors.toList());
+        Mockito.when(employeeRepository.getEmployees()).thenReturn(employees);
+
+        //When
+        List<Employee> actualEmployees = employeeService.getEmployeesByPage(pageIndex, pageSize);
+
+        //Then
+        assertEquals(expectedEmployees, actualEmployees);
+    }
+
+    @Test
     public void should_add_employee_when_added_employee_given_employees() {
         //Given
         List<Employee> employees = new ArrayList<>();
