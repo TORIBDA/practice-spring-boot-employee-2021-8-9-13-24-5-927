@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 import static org.assertj.core.api.BDDAssumptions.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @ExtendWith(MockitoExtension.class)
 public class EmployeeServiceTest {
@@ -143,5 +144,22 @@ public class EmployeeServiceTest {
                 .get();
         //Then
         assertEquals(expectedEmployee, actualEmployee);
+    }
+
+    @Test
+    public void should_delete_employee_when_delete_employee_given_existing_employee() {
+        //Given
+        List<Employee> employees = new ArrayList<>();
+        Employee employee = new Employee(1,"Joanna",23,"female",1000);
+        employees.add(employee);
+        Mockito.when(employeeRepository.getEmployees()).thenReturn(employees);
+        //When
+        employeeService.deleteEmployee(employee.getId());
+        Employee actualEmployee = employeeService.getAllEmployees().stream()
+                .filter(employeeValue -> employeeValue.getId().equals(employee.getId()))
+                .findFirst()
+                .orElse(null);
+        //Then
+        assertNull(actualEmployee);
     }
 }

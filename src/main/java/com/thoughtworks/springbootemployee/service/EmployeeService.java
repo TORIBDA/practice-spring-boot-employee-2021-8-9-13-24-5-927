@@ -79,4 +79,11 @@ public class EmployeeService {
         }
         return employee;
     }
+
+    public void deleteEmployee(Integer employeeID) {
+        employeeRepository.getEmployees().stream()
+                .filter(employee -> employee.getId().equals(employeeID))
+                .findFirst()
+                .ifPresent(employeeToRemove -> employeeRepository.getEmployees().remove(employeeToRemove));
+    }
 }
