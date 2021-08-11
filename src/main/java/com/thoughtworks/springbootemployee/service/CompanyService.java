@@ -9,13 +9,15 @@ import javax.annotation.Resource;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class CompanyService {
     @Resource
     private CompanyRepository companyRepository;
 
-    public CompanyService() {}
+    public CompanyService() {
+    }
 
     public CompanyService(CompanyRepository companyRepository) {
         this.companyRepository = companyRepository;
@@ -27,7 +29,7 @@ public class CompanyService {
 
     public Company findCompanyById(Integer companyID) {
         return companyRepository.getCompanies().stream()
-                .filter(company -> company.getId()==companyID)
+                .filter(company -> company.getId() == companyID)
                 .findFirst()
                 .orElse(null);
     }
@@ -39,5 +41,13 @@ public class CompanyService {
                 .orElse(null))
                 .getEmployeeRepository()
                 .getEmployees();
+    }
+
+    public List<Company> getCompaniesByPage(int pageIndex, int pageSize) {
+        int skipValue = (pageIndex - 1) * pageSize;
+        return companyRepository.getCompanies().stream()
+                .skip(skipValue)
+                .limit(pageSize)
+                .collect(Collectors.toList());
     }
 }

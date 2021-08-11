@@ -69,4 +69,31 @@ public class CompanyServiceTest {
         //Then
         assertEquals(expectedCompany.getEmployeeRepository().getEmployees(), actualCompany);
     }
+
+    @Test
+    public void should_return_employees_by_page_when_find_employee_by_page_given_page_index_page_size() {
+        //Given
+        List<Company> companies = new ArrayList<>();
+        companies.add(new Company(1,"Debidss"));
+        companies.add(new Company(2,"D1"));
+        companies.add(new Company(3,"D2"));
+        companies.add(new Company(4,"D3"));
+        companies.add(new Company(5,"D4"));
+        companies.add(new Company(6,"D5"));
+        companies.add(new Company(7,"D6"));
+        companies.add(new Company(8,"D7"));
+        int pageIndex = 2;
+        int pageSize = 5;
+        List<Company> expectedCompanies =  companies.stream()
+                .skip((pageIndex - 1) * pageSize)
+                .limit(pageSize)
+                .collect(Collectors.toList());
+        Mockito.when(companyRepository.getCompanies()).thenReturn(companies);
+
+        //When
+        List<Company> actualCompanies = companyService.getCompaniesByPage(pageIndex, pageSize);
+
+        //Then
+        assertEquals(expectedCompanies, actualCompanies);
+    }
 }
