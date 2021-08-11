@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 public class EmployeesController {
     @Autowired
     private EmployeeService employeeService;
-    private List<Employee> employees = new ArrayList<>();
 
     @GetMapping
     public List<Employee> getAllEmployees() {
