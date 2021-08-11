@@ -1,12 +1,14 @@
 package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.model.Company;
+import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class CompanyService {
@@ -28,5 +30,14 @@ public class CompanyService {
                 .filter(company -> company.getId()==companyID)
                 .findFirst()
                 .orElse(null);
+    }
+
+    public List<Employee> getAllEmployees(Integer companyID) {
+        return Objects.requireNonNull(companyRepository.getCompanies().stream()
+                .filter(company -> company.getId() == companyID)
+                .findFirst()
+                .orElse(null))
+                .getEmployeeRepository()
+                .getEmployees();
     }
 }
