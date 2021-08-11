@@ -56,4 +56,21 @@ public class CompanyService {
         Company companyToBeAdded = new Company(companyRepository.getCompanies().size() + 1, company.getName());
         companyRepository.getCompanies().add(companyToBeAdded);
     }
+
+    public void updateCompany(Integer companyID, Company companyNewInformation) {
+        companyRepository.getCompanies().stream()
+                .filter(company -> company.getId().equals(companyID))
+                .findFirst()
+                .map(company -> updateCompanyInfo(company, companyNewInformation));
+    }
+
+    private Company updateCompanyInfo(Company companyToBeUpdated, Company companyNewInformation) {
+        if (companyNewInformation.getName() != null) {
+            companyToBeUpdated.setName(companyNewInformation.getName());
+        }
+        if (companyNewInformation.getEmployeeRepository() != null) {
+            companyToBeUpdated.setEmployeeRepository(companyNewInformation.getEmployeeRepository());
+        }
+        return companyToBeUpdated;
+    }
 }

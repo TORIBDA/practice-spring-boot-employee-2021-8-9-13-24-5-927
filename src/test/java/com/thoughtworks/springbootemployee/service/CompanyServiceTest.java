@@ -115,4 +115,24 @@ public class CompanyServiceTest {
                 .findFirst()
                 .orElse(null));
     }
+
+    @Test
+    public void should_update_company_when_update_company_given_updated_company() {
+        //Given
+        List<Company> companies = new ArrayList<>();
+        Company company = new Company(companyService.getAllCompanies().size()+1, "DIVEDSC");
+        companies.add(company);
+        Mockito.when(companyRepository.getCompanies()).thenReturn(companies);
+
+        //When
+        Company expectedCompany = new Company(company.getId(), "UpdatedDIVEDSC");
+        companyService.updateCompany(expectedCompany.getId(), expectedCompany);
+        List<Company> actualCompany = companyService.getAllCompanies();
+
+        //Then
+        assertEquals(expectedCompany, actualCompany.stream()
+                .filter(companyValue -> companyValue.equals(expectedCompany))
+                .findFirst()
+                .orElse(null));
+    }
 }

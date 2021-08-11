@@ -41,4 +41,10 @@ public class CompanyController {
     public void addCompany(@RequestBody Company company) {
         companyService.addCompany(company);
     }
+
+    @PutMapping(path = "/{companyID}")
+    public void updateCompany(@PathVariable Integer companyID, @RequestBody Company companyNewValue) {
+        System.out.println("HENLOW WORLD");
+        companyService.updateCompany(companyID, companyNewValue);
+    }
 }
