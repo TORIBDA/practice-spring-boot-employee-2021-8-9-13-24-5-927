@@ -23,11 +23,7 @@ public class EmployeesController {
 
     @GetMapping(path = "/{employeeId}")
     public Employee findById(@PathVariable Integer employeeId) {
-        return employees.stream()
-                .filter(employee -> employee.getId().equals(employeeId))
-                .findFirst()
-                .orElse(null);
-
+        return employeeService.findById(employeeId);
     }
 
     @GetMapping(params = {"page", "pageSize"})
@@ -41,9 +37,7 @@ public class EmployeesController {
 
     @GetMapping(params = {"gender"})
     public List<Employee> getEmployeesByGender(@RequestParam(name = "gender", required = true) String gender) {
-        return employees.stream()
-                .filter(employee -> employee.getGender().equals(gender))
-                .collect(Collectors.toList());
+        return employeeService.getEmployeesByGender(gender);
     }
 
     @PostMapping
