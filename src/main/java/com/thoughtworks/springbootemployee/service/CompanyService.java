@@ -22,4 +22,11 @@ public class CompanyService {
     public List<Company> getAllCompanies() {
         return companyRepository.getCompanies();
     }
+
+    public Company findCompanyById(Integer companyID) {
+        return companyRepository.getCompanies().stream()
+                .filter(company -> company.getId()==companyID)
+                .findFirst()
+                .orElse(null);
+    }
 }

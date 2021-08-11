@@ -37,4 +37,19 @@ public class CompanyServiceTest {
         //Then
         assertEquals(companies, actualCompanies);
     }
+
+    @Test
+    public void should_return_company_when_get_company_by_id_given_existing_companies() {
+        //Given
+        List<Company> companies = new ArrayList<>();
+        Company expectedCompany = new Company(1,"Debidss");
+        companies.add(expectedCompany);
+        Mockito.when(companyRepository.getCompanies()).thenReturn(companies);
+
+        //When
+        Company actualCompany = companyService.findCompanyById(1);
+
+        //Then
+        assertEquals(expectedCompany, actualCompany);
+    }
 }
