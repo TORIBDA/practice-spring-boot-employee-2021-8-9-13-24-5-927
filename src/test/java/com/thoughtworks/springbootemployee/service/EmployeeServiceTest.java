@@ -139,9 +139,9 @@ public class EmployeeServiceTest {
         Employee expectedEmployee = new Employee(1,"Dibed",18,"male",10000);
         employeeService.updateEmployee(expectedEmployee.getId(), expectedEmployee);
         Employee actualEmployee = employeeService.getAllEmployees().stream()
-                .filter(employeeValue -> employeeValue.getId()==expectedEmployee.getId())
+                .filter(employeeValue -> employeeValue.getId().equals(expectedEmployee.getId()))
                 .findFirst()
-                .get();
+                .orElse(null);
         //Then
         assertEquals(expectedEmployee, actualEmployee);
     }
