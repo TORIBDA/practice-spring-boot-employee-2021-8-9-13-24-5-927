@@ -38,4 +38,23 @@ public class EmployeeServiceTest {
         //Then
         assertEquals(employees, actualEmployees);
     }
+
+    @Test
+    public void should_add_employee_when_added_employee_given_employees() {
+        //Given
+        List<Employee> employees = new ArrayList<>();
+        Employee expectedEmployee = new Employee(employeeService.getAllEmployees().size()+1,
+                "Joanna",
+                23,
+                "female",
+                1000);
+        Mockito.when(employeeRepository.getEmployees()).thenReturn(employees);
+
+        //When
+        employeeService.addEmployee(expectedEmployee);
+        List<Employee> actualEmployee = employeeService.getAllEmployees();
+
+        //Then
+        assertEquals(expectedEmployee, actualEmployee.get(0));
+    }
 }
