@@ -14,8 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 public class CompanyServiceTest {
@@ -134,5 +133,24 @@ public class CompanyServiceTest {
                 .filter(companyValue -> companyValue.equals(expectedCompany))
                 .findFirst()
                 .orElse(null));
+    }
+
+    @Test
+    public void should_delete_company_when_delete_company_given_company() {
+        //Given
+        List<Company> companies = new ArrayList<>();
+        Company company = new Company(companyService.getAllCompanies().size()+1, "DIVEDSC");
+        companies.add(company);
+        Mockito.when(companyRepository.getCompanies()).thenReturn(companies);
+
+        //When
+        companyService.deleteCompany(company.getId());
+        Company actualCompany = companyService.getAllCompanies().stream()
+                .filter(company1 -> company1.getId().equals(company.getId()))
+                .findFirst()
+                .orElse(null);
+
+        //Then
+        assertNull(actualCompany);
     }
 }

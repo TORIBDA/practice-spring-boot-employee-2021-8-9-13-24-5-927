@@ -73,4 +73,11 @@ public class CompanyService {
         }
         return companyToBeUpdated;
     }
+
+    public void deleteCompany(Integer companyID) {
+        companyRepository.getCompanies().stream()
+                .filter(company -> company.getId().equals(companyID))
+                .findFirst()
+                .ifPresent(companyToRemove -> companyRepository.getCompanies().remove(companyToRemove));
+    }
 }

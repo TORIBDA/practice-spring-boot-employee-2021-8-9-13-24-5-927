@@ -44,7 +44,11 @@ public class CompanyController {
 
     @PutMapping(path = "/{companyID}")
     public void updateCompany(@PathVariable Integer companyID, @RequestBody Company companyNewValue) {
-        System.out.println("HENLOW WORLD");
         companyService.updateCompany(companyID, companyNewValue);
+    }
+
+    @DeleteMapping(path = "/{companyID}")
+    public void deleteEmployee(@PathVariable Integer companyID) {
+        companyService.deleteCompany(companyID);
     }
 }
