@@ -27,14 +27,14 @@ public class CompanyService {
     }
 
     public Company findCompanyById(Integer companyID) {
-        return companyRepository.getCompanies().stream()
+        return getAllCompanies().stream()
                 .filter(company -> company.getId().equals(companyID))
                 .findFirst()
                 .orElse(null);
     }
 
     public List<Employee> getAllEmployees(Integer companyID) {
-        return Objects.requireNonNull(companyRepository.getCompanies().stream()
+        return Objects.requireNonNull(getAllCompanies().stream()
                 .filter(company -> company.getId().equals(companyID))
                 .findFirst()
                 .orElse(null))
@@ -44,7 +44,7 @@ public class CompanyService {
 
     public List<Company> getCompaniesByPage(int pageIndex, int pageSize) {
         int skipValue = (pageIndex - 1) * pageSize;
-        return companyRepository.getCompanies().stream()
+        return getAllCompanies().stream()
                 .skip(skipValue)
                 .limit(pageSize)
                 .collect(Collectors.toList());
@@ -52,11 +52,11 @@ public class CompanyService {
 
     public void addCompany(Company company) {
         Company companyToBeAdded = new Company(companyRepository.getCompanies().size() + 1, company.getName());
-        companyRepository.getCompanies().add(companyToBeAdded);
+        getAllCompanies().add(companyToBeAdded);
     }
 
     public void updateCompany(Integer companyID, Company companyNewInformation) {
-        companyRepository.getCompanies().stream()
+        getAllCompanies().stream()
                 .filter(company -> company.getId().equals(companyID))
                 .findFirst()
                 .map(company -> updateCompanyInfo(company, companyNewInformation));
@@ -73,9 +73,9 @@ public class CompanyService {
     }
 
     public void deleteCompany(Integer companyID) {
-        companyRepository.getCompanies().stream()
+        getAllCompanies().stream()
                 .filter(company -> company.getId().equals(companyID))
                 .findFirst()
-                .ifPresent(companyToRemove -> companyRepository.getCompanies().remove(companyToRemove));
+                .ifPresent(companyToRemove -> getAllCompanies().remove(companyToRemove));
     }
 }

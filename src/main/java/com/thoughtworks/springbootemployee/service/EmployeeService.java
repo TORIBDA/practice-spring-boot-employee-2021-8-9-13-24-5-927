@@ -26,21 +26,21 @@ public class EmployeeService {
     }
 
     public Employee findById(Integer employeeId) {
-        return employeeRepository.getEmployees().stream()
+        return getAllEmployees().stream()
                 .filter(employee -> employee.getId().equals(employeeId))
                 .findFirst()
                 .orElse(null);
     }
 
     public List<Employee> getEmployeesByGender(String gender) {
-        return employeeRepository.getEmployees().stream()
+        return getAllEmployees().stream()
                 .filter(employee -> employee.getGender().equals(gender))
                 .collect(Collectors.toList());
     }
 
     public List<Employee> getEmployeesByPage(Integer page, Integer pageSize) {
         int skipValue = (page - 1) * pageSize;
-        return employeeRepository.getEmployees().stream()
+        return getAllEmployees().stream()
                 .skip(skipValue)
                 .limit(pageSize)
                 .collect(Collectors.toList());
@@ -52,10 +52,11 @@ public class EmployeeService {
                 employee.getAge(),
                 employee.getGender(),
                 employee.getSalary());
-        employeeRepository.getEmployees().add(employeeToBeAdded);
+        getAllEmployees().add(employeeToBeAdded);
     }
 
-    public void updateEmployee(Integer employeeId, Employee employeeToBeUpdated) {
+    public void updateEmployee(Integer employeeId, Employee employeeToBeUpdated) {//TODO: by id
+        //updateEmployeeInfo(findById(employeeId), employeeToBeUpdated);
         employeeRepository.getEmployees().stream()
                 .filter(employee -> employee.getId().equals(employeeId))
                 .findFirst()
@@ -79,7 +80,7 @@ public class EmployeeService {
     }
 
     public void deleteEmployee(Integer employeeID) {
-        employeeRepository.getEmployees().stream()
+        getAllEmployees().stream()
                 .filter(employee -> employee.getId().equals(employeeID))
                 .findFirst()
                 .ifPresent(employeeToRemove -> employeeRepository.getEmployees().remove(employeeToRemove));
