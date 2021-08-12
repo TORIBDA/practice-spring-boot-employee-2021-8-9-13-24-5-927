@@ -40,11 +40,12 @@ public class EmployeesController {
     public Employee addEmployee(@RequestBody Employee employee) {
         return employeeService.addEmployee(employee);
     }
-//
-//    @PutMapping(path = "/{employeeId}")
-//    public void updateEmployee(@PathVariable Integer employeeId, @RequestBody Employee employeeToBeUpdated) {
-//        employeeService.updateEmployee(employeeId, employeeToBeUpdated);
-//    }
+
+    @PutMapping(path = "/{employeeId}")
+    @ResponseStatus(HttpStatus.OK)
+    public Employee updateEmployee(@PathVariable Integer employeeId, @RequestBody Employee employeeToBeUpdated) {
+        return employeeService.updateEmployee(employeeId, employeeToBeUpdated);
+    }
 //
 //    @DeleteMapping(path = "/{employeeId}")
 //    public void deleteEmployee(@PathVariable Integer employeeId) {
