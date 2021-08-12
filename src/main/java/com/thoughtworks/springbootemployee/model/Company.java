@@ -2,7 +2,6 @@ package com.thoughtworks.springbootemployee.model;
 
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 
-import java.util.List;
 import java.util.Objects;
 
 public class Company {
