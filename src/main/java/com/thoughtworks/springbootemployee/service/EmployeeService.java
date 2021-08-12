@@ -19,12 +19,9 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
-//    public Employee findById(Integer employeeId) {
-//        return getAllEmployees().stream()
-//                .filter(employee -> employee.getId().equals(employeeId))
-//                .findFirst()
-//                .orElse(null);
-//    }
+    public Employee findById(Integer employeeId) {
+        return employeeRepository.findById(employeeId).orElse(null);
+    }
 //
 //    public List<Employee> getEmployeesByGender(String gender) {
 //        return getAllEmployees().stream()

@@ -4,6 +4,7 @@ import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,10 +21,10 @@ public class EmployeesController {
         return employeeService.getAllEmployees();
     }
 
-//    @GetMapping(path = "/{employeeId}")
-//    public Employee findById(@PathVariable Integer employeeId) {
-//        return employeeService.findById(employeeId);
-//    }
+    @GetMapping(path = "/{employeeId}")
+    public Employee findById(@PathVariable Integer employeeId) {
+        return employeeService.findById(employeeId);
+    }
 //
 //    @GetMapping(params = {"page", "pagesize"})
 //    public List<Employee> getEmployeesByPage(@RequestParam(name = "page", required = true) Integer page, @RequestParam(name = "pagesize", required = true) Integer pageSize) {
