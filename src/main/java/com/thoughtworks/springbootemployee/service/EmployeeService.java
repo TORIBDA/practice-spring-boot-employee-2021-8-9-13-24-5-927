@@ -57,11 +57,9 @@ public class EmployeeService {
         }
         return employee;
     }
-//
-//    public void deleteEmployee(Integer employeeID) {
-//        getAllEmployees().stream()
-//                .filter(employee -> employee.getId().equals(employeeID))
-//                .findFirst()
-//                .ifPresent(employeeToRemove -> retiredEmployeeRepository.getEmployees().remove(employeeToRemove));
-//    }
+
+    public void deleteEmployee(Integer employeeID) {
+        Employee employeeToRemove = findById(employeeID);
+        employeeRepository.delete(employeeToRemove);
+    }
 }
