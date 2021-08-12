@@ -22,12 +22,10 @@ public class EmployeeService {
     public Employee findById(Integer employeeId) {
         return employeeRepository.findById(employeeId).orElse(null);
     }
-//
-//    public List<Employee> getEmployeesByGender(String gender) {
-//        return getAllEmployees().stream()
-//                .filter(employee -> employee.getGender().equals(gender))
-//                .collect(Collectors.toList());
-//    }
+
+    public List<Employee> getEmployeesByGender(String gender) {
+        return employeeRepository.findAllByGender(gender);
+    }
 //
 //    public List<Employee> getEmployeesByPage(Integer page, Integer pageSize) {
 //        int skipValue = (page - 1) * pageSize;

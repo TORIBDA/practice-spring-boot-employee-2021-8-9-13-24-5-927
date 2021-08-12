@@ -7,12 +7,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Arrays;
 import java.util.List;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -29,8 +31,8 @@ public class EmployeeIntegrationTest {
     @BeforeEach
     public void setup() {
         dummyEmployees = Arrays.asList((new Employee(1, "Debids", 19, "male", 1000000, 1)),
-                (new Employee(2, "Joanna", 21, "male", 1000000, 1)),
-                (new Employee(3, "Lemao", 20, "female", 1000000, 1)),
+                (new Employee(2, "Joanna", 21, "female", 1000000, 1)),
+                (new Employee(3, "Dibidi", 18, "female", 1234, 1)),
                 (new Employee(4, "Barnakol", 21, "male", 1000000, 2)),
                 (new Employee(5, "Bobby", 18, "male", 1000000, 2)));
     }
@@ -57,5 +59,14 @@ public class EmployeeIntegrationTest {
                 .andExpect(jsonPath("$.age").value(19))
                 .andExpect(jsonPath("$.gender").value("male"))
                 .andExpect(jsonPath("$.salary").value(1000000));
+    }
+
+    @Test
+    void should_return_employees_when_findByGender_given_employee_gender() throws Exception {
+        String gender = "male";
+        mockMvc.perform(MockMvcRequestBuilders.get("/employees").param("gender", gender)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.*", hasSize(3)));
     }
 }
