@@ -126,3 +126,16 @@ INSERT INTO EMPLOYEE (id, name, age, gender, salary) VALUES (1, 'Debids', 19, 'm
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:748)
+2021-08-12 22:51:47 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT FROM[*] EMPLOYEE(ID,NAME,AGE,GENDER,SALARY,COMPANY_ID) VALUES(3,'Dibidi','female',1234,1)"; expected "INTO"; SQL statement:
+INSERT FROM EMPLOYEE(ID,NAME,AGE,GENDER,SALARY,COMPANY_ID) VALUES(3,'Dibidi','female',1234,1) [42001-200]
+2021-08-12 22:52:32 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT FROM[*] EMPLOYEE(ID,NAME,AGE,GENDER,SALARY,COMPANY_ID) VALUES(3,'Dibidi',18,'female',1234,1)"; expected "INTO"; SQL statement:
+INSERT FROM EMPLOYEE(ID,NAME,AGE,GENDER,SALARY,COMPANY_ID) VALUES(3,'Dibidi',18,'female',1234,1) [42001-200]
+2021-08-12 22:53:13 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT FROM[*] 
+EMPLOYEE(ID, NAME, AGE, GENDER, SALARY, COMPANY_ID) 
+VALUES(3, 'Dibidi', 18, 'female', 1234, 1)"; expected "INTO"; SQL statement:
+INSERT FROM 
+EMPLOYEE(ID, NAME, AGE, GENDER, SALARY, COMPANY_ID) 
+VALUES(3, 'Dibidi', 18, 'female', 1234, 1) [42001-200]
