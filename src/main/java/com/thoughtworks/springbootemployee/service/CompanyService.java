@@ -28,14 +28,14 @@ public class CompanyService {
 
     public Company findCompanyById(Integer companyID) {
         return companyRepository.getCompanies().stream()
-                .filter(company -> company.getId() == companyID)
+                .filter(company -> company.getId().equals(companyID))
                 .findFirst()
                 .orElse(null);
     }
 
     public List<Employee> getAllEmployees(Integer companyID) {
         return Objects.requireNonNull(companyRepository.getCompanies().stream()
-                .filter(company -> company.getId() == companyID)
+                .filter(company -> company.getId().equals(companyID))
                 .findFirst()
                 .orElse(null))
                 .getEmployeeRepository()
