@@ -1,16 +1,29 @@
 package com.thoughtworks.springbootemployee.model;
 
-import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
 public class Employee {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private Integer age;
     private String gender;
     private Integer salary;
+    private Integer company_id;
 
-    public Employee(){
+    public Employee() {
+    }
 
+    public Employee(String name, Integer age, String gender, Integer salary) {
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.salary = salary;
     }
 
     public Employee(Integer id, String name, Integer age, String gender, Integer salary) {
@@ -19,6 +32,15 @@ public class Employee {
         this.age = age;
         this.gender = gender;
         this.salary = salary;
+    }
+
+    public Employee(Integer id, String name, Integer age, String gender, Integer salary, Integer company_id) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.salary = salary;
+        this.company_id = company_id;
     }
 
     public Integer getId() {
@@ -55,18 +77,5 @@ public class Employee {
 
     public void setSalary(Integer salary) {
         this.salary = salary;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Employee employee = (Employee) o;
-        return Objects.equals(id, employee.id) && Objects.equals(name, employee.name) && Objects.equals(age, employee.age) && Objects.equals(gender, employee.gender) && Objects.equals(salary, employee.salary);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, age, gender, salary);
     }
 }
