@@ -56,20 +56,16 @@ public class CompanyService {
     }
 
     public void updateCompany(Integer companyID, Company companyNewInformation) {
-        getAllCompanies().stream()
-                .filter(company -> company.getId().equals(companyID))
-                .findFirst()
-                .map(company -> updateCompanyInfo(company, companyNewInformation));
+        updateCompanyInfo(findCompanyById(companyID), companyNewInformation);
     }
 
-    private Company updateCompanyInfo(Company companyToBeUpdated, Company companyNewInformation) {
+    private void updateCompanyInfo(Company companyToBeUpdated, Company companyNewInformation) {
         if (companyNewInformation.getName() != null) {
             companyToBeUpdated.setName(companyNewInformation.getName());
         }
         if (companyNewInformation.getEmployeeRepository() != null) {
             companyToBeUpdated.setEmployeeRepository(companyNewInformation.getEmployeeRepository());
         }
-        return companyToBeUpdated;
     }
 
     public void deleteCompany(Integer companyID) {
