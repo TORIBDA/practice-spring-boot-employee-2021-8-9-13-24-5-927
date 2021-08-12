@@ -25,4 +25,12 @@ public class CompanyIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[*].*", Matchers.anything()));
     }
+
+    @Test
+    void should_return_all_employees_when_getAllEmployees_of_company() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/companies/1/employees")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[*].*", Matchers.anything()));
+    }
 }

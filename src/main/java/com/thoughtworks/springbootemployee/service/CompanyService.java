@@ -1,10 +1,12 @@
 package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.model.Company;
+import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class CompanyService {
@@ -17,22 +19,14 @@ public class CompanyService {
     public List<Company> getAllCompanies() {
         return companyRepository.findAll();
     }
-//
-//    public Company findCompanyById(Integer companyID) {
-//        return getAllCompanies().stream()
-//                .filter(company -> company.getId().equals(companyID))
-//                .findFirst()
-//                .orElse(null);
-//    }
-//
-//    public List<Employee> getAllEmployees(Integer companyID) {
-//        return Objects.requireNonNull(getAllCompanies().stream()
-//                .filter(company -> company.getId().equals(companyID))
-//                .findFirst()
-//                .orElse(null))
-//                .getEmployeeRepository()
-//                .getEmployees();
-//    }
+
+    public Company findCompanyById(Integer companyID) {
+        return companyRepository.findById(companyID).orElse(null);
+    }
+
+    public List<Employee> getAllEmployees(Integer companyID) {
+        return findCompanyById(companyID).getEmployees();
+    }
 //
 //    public List<Company> getCompaniesByPage(int pageIndex, int pageSize) {
 //        int skipValue = (pageIndex - 1) * pageSize;
