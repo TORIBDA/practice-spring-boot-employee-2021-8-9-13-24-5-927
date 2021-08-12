@@ -2,6 +2,7 @@ package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,15 +27,11 @@ public class EmployeeService {
     public List<Employee> getEmployeesByGender(String gender) {
         return employeeRepository.findAllByGender(gender);
     }
-//
-//    public List<Employee> getEmployeesByPage(Integer page, Integer pageSize) {
-//        int skipValue = (page - 1) * pageSize;
-//        return getAllEmployees().stream()
-//                .skip(skipValue)
-//                .limit(pageSize)
-//                .collect(Collectors.toList());
-//    }
-//
+
+    public List<Employee> getEmployeesByPage(Integer pageIndex, Integer pageSize) {
+        return employeeRepository.findAll(PageRequest.of(pageIndex-1,pageSize)).getContent();
+    }
+
 //    public void addEmployee(@RequestBody Employee employee) {
 //        Employee employeeToBeAdded = new Employee(retiredEmployeeRepository.getEmployees().size() + 1,
 //                employee.getName(),

@@ -27,11 +27,12 @@ public class EmployeesController {
     public List<Employee> getEmployeesByGender(@RequestParam(name = "gender", required = true) String gender) {
         return employeeService.getEmployeesByGender(gender);
     }
-//
-//    @GetMapping(params = {"page", "pagesize"})
-//    public List<Employee> getEmployeesByPage(@RequestParam(name = "page", required = true) Integer page, @RequestParam(name = "pagesize", required = true) Integer pageSize) {
-//        return employeeService.getEmployeesByPage(page, pageSize);
-//    }
+
+    @GetMapping(params = {"pageindex", "pagesize"})
+    public List<Employee> getEmployeesByPage(@RequestParam(name = "pageindex", required = true) Integer page,
+                                             @RequestParam(name = "pagesize", required = true) Integer pageSize) {
+        return employeeService.getEmployeesByPage(page, pageSize);
+    }
 //
 //    @PostMapping
 //    public void addEmployee(@RequestBody Employee employee) {
