@@ -4,6 +4,7 @@ import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -32,15 +33,10 @@ public class EmployeeService {
         return employeeRepository.findAll(PageRequest.of(pageIndex-1,pageSize)).getContent();
     }
 
-//    public void addEmployee(@RequestBody Employee employee) {
-//        Employee employeeToBeAdded = new Employee(retiredEmployeeRepository.getEmployees().size() + 1,
-//                employee.getName(),
-//                employee.getAge(),
-//                employee.getGender(),
-//                employee.getSalary());
-//        getAllEmployees().add(employeeToBeAdded);
-//    }
-//
+    public Employee addEmployee(Employee employee) {
+        return employeeRepository.save(employee);
+    }
+
 //    public void updateEmployee(Integer employeeId, Employee employeeToBeUpdated) {//TODO: by id
 //        //updateEmployeeInfo(findById(employeeId), employeeToBeUpdated);
 //        retiredEmployeeRepository.getEmployees().stream()
