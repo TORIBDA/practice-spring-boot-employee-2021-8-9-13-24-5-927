@@ -12,7 +12,6 @@ public class EmployeeRequest {
     private Integer salary;
     private Integer company_id;
 
-
     public EmployeeRequest() {
     }
 
