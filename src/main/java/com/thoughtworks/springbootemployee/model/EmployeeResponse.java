@@ -1,29 +1,56 @@
 package com.thoughtworks.springbootemployee.model;
 
-public class EmployeeRequest {
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+public class EmployeeResponse {
+
+    private Integer id;
     private String name;
     private Integer age;
     private String gender;
     private Integer salary;
     private Integer company_id;
 
-    public EmployeeRequest() {
+
+    public EmployeeResponse() {
     }
 
-    public EmployeeRequest(String name, Integer age, String gender, Integer salary) {
+    public EmployeeResponse(String name, Integer age, String gender, Integer salary) {
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.salary = salary;
     }
 
-    public EmployeeRequest(String name, Integer age, String gender, Integer salary, Integer company_id) {
+    public EmployeeResponse(String name, Integer age, String gender, Integer salary, Integer company_id) {
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.salary = salary;
         this.company_id = company_id;
+    }
+
+    public EmployeeResponse(Integer id, String name, Integer age, String gender, Integer salary) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.salary = salary;
+    }
+
+    public EmployeeResponse(Integer id, String name, Integer age, String gender, Integer salary, Integer company_id) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.salary = salary;
+        this.company_id = company_id;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public String getName() {
@@ -44,6 +71,10 @@ public class EmployeeRequest {
 
     public Integer getCompany_id() {
         return company_id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void setName(String name) {

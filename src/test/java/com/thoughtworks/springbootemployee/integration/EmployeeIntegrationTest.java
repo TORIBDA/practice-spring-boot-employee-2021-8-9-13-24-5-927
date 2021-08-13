@@ -1,11 +1,8 @@
 package com.thoughtworks.springbootemployee.integration;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.thoughtworks.springbootemployee.model.Employee;
+import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.hamcrest.Matchers;
-import org.hamcrest.core.AllOf;
-import org.hamcrest.core.StringContains;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -121,6 +118,9 @@ public class EmployeeIntegrationTest {
         //given
         Employee employee = new Employee("DIVAD", 18, "male", 420);
         String newEmployeeInfo = "{\n" +
+                "    \"name\": \"VIDAVID\",\n" +
+                "    \"age\": 21,\n" +
+                "    \"gender\": \"female\",\n" +
                 "    \"salary\": 960,\n" +
                 "    \"company_id\": 1\n" +
                 "}";
@@ -133,7 +133,7 @@ public class EmployeeIntegrationTest {
                 .content(newEmployeeInfo))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.salary").value("960"))
-                .andExpect(jsonPath("$.company_id").value("1"));
+                .andExpect(jsonPath("$.company_id").value("1"));//TODO: add more expect
     }
 
     @Test
