@@ -1,6 +1,4 @@
-package com.thoughtworks.springbootemployee.model;
-
-import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
+package com.thoughtworks.springbootemployee.entity;
 
 import javax.persistence.*;
 import java.util.LinkedList;
