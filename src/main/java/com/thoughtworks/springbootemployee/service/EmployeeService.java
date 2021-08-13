@@ -1,11 +1,10 @@
 package com.thoughtworks.springbootemployee.service;
 
-import com.thoughtworks.springbootemployee.exception.CouldNotFindEmployeeException;
+import com.thoughtworks.springbootemployee.exception.EmployeeNotFoundException;
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -23,7 +22,7 @@ public class EmployeeService {
     }
 
     public Employee findById(Integer employeeId) {
-        return employeeRepository.findById(employeeId).orElseThrow(CouldNotFindEmployeeException::new);
+        return employeeRepository.findById(employeeId).orElseThrow(EmployeeNotFoundException::new);
     }
 
     public List<Employee> getEmployeesByGender(String gender) {
@@ -55,6 +54,9 @@ public class EmployeeService {
         }
         if (employeeToBeUpdated.getSalary() != null) {
             employee.setSalary(employeeToBeUpdated.getSalary());
+        }
+        if (employeeToBeUpdated.getCompany_id() != null) {
+            employee.setCompany_id(employeeToBeUpdated.getCompany_id());
         }
         return employee;
     }

@@ -6,6 +6,7 @@ import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.hamcrest.Matchers;
 import org.hamcrest.core.AllOf;
 import org.hamcrest.core.StringContains;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ import java.util.List;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
+//TODO: remove unused imports
 @SpringBootTest
 @AutoConfigureMockMvc
 public class EmployeeIntegrationTest {
@@ -33,12 +34,18 @@ public class EmployeeIntegrationTest {
     private List<Employee> dummyEmployees;
 
     @BeforeEach
-    public void setup() {
+    public void setupData() {
         dummyEmployees = Arrays.asList((new Employee(1, "Debids", 19, "male", 1000000, 1)),
                 (new Employee(2, "Joanna", 21, "female", 1000000, 1)),
                 (new Employee(3, "Dibidi", 18, "female", 1234, 1)),
                 (new Employee(4, "Barnakol", 21, "male", 1000000, 2)),
                 (new Employee(5, "Bobby", 18, "male", 1000000, 2)));
+        //dummyEmployees.stream().forEach(employee -> employeeRepository.save(employee));
+    }
+
+    @AfterEach
+    public void  deleteDataAfter() {
+        //employeeRepository.deleteAll();
     }
 
     @Test
@@ -82,7 +89,7 @@ public class EmployeeIntegrationTest {
                 .param("pageindex", String.valueOf(pageIndex)).param("pagesize", String.valueOf(pageSize))
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.*", hasSize(2)));
+                .andExpect(jsonPath("$.*", hasSize(pageSize)));
     }
 
     @Test
@@ -93,7 +100,8 @@ public class EmployeeIntegrationTest {
                 "    \"name\": \"DIVIDII\",\n" +
                 "    \"age\": 42,\n" +
                 "    \"gender\": \"male\",\n" +
-                "    \"salary\": 20\n" +
+                "    \"salary\": 20,\n" +
+                "    \"company_id\": 1\n" +
                 "}";
 
         //when
@@ -103,7 +111,8 @@ public class EmployeeIntegrationTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name").value("DIVIDII"))
                 .andExpect(jsonPath("$.gender").value("male"))
-                .andExpect(jsonPath("$.salary").value("20"));
+                .andExpect(jsonPath("$.salary").value("20"))
+                .andExpect(jsonPath("$.company_id").value("1"));
 
     }
 
@@ -112,7 +121,8 @@ public class EmployeeIntegrationTest {
         //given
         Employee employee = new Employee("DIVAD", 18, "male", 420);
         String newEmployeeInfo = "{\n" +
-                "    \"salary\": 960\n" +
+                "    \"salary\": 960,\n" +
+                "    \"company_id\": 1\n" +
                 "}";
 
         //when and then
@@ -122,7 +132,8 @@ public class EmployeeIntegrationTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(newEmployeeInfo))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.salary").value("960"));
+                .andExpect(jsonPath("$.salary").value("960"))
+                .andExpect(jsonPath("$.company_id").value("1"));
     }
 
     @Test

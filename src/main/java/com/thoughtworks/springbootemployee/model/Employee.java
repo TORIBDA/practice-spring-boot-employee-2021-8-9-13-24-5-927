@@ -16,6 +16,7 @@ public class Employee {
     private Integer salary;
     private Integer company_id;
 
+
     public Employee() {
     }
 
@@ -71,6 +72,10 @@ public class Employee {
         return salary;
     }
 
+    public Integer getCompany_id() {
+        return company_id;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -85,5 +90,9 @@ public class Employee {
 
     public void setSalary(Integer salary) {
         this.salary = salary;
+    }
+
+    public void setCompany_id(Integer company_id) {
+        this.company_id = company_id;
     }
 }
