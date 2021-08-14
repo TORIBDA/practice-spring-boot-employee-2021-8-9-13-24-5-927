@@ -20,7 +20,6 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-//TODO: remove unused imports
 @SpringBootTest
 @AutoConfigureMockMvc
 public class EmployeeIntegrationTest {
@@ -77,7 +76,7 @@ public class EmployeeIntegrationTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/employees").param("gender", gender)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[*].gender", Matchers.hasItems("male")));
+                .andExpect(jsonPath("$[*].gender", Matchers.hasItems(gender)));
     }
 
     @Test
@@ -134,8 +133,11 @@ public class EmployeeIntegrationTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(newEmployeeInfo))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value("VIDAVID"))
+                .andExpect(jsonPath("$.age").value("21"))
+                .andExpect(jsonPath("$.gender").value("female"))
                 .andExpect(jsonPath("$.salary").value("960"))
-                .andExpect(jsonPath("$.company_id").value("1"));//TODO: add more expect
+                .andExpect(jsonPath("$.company_id").value("1"));
     }
 
     @Test
