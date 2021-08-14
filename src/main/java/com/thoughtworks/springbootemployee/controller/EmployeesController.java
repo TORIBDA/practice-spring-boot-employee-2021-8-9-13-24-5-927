@@ -34,20 +34,24 @@ public class EmployeesController {
     }
 
     @GetMapping(params = {"gender"})
-    public List<Employee> getEmployeesByGender(@RequestParam(name = "gender", required = true) String gender) {
-        return employeeService.getEmployeesByGender(gender);
+    public List<EmployeeResponse> getEmployeesByGender(@RequestParam(name = "gender", required = true) String gender) {
+        return employeeService.getEmployeesByGender(gender).stream()
+                .map(employee -> employeeMapper.toResponse(employee))
+                .collect(Collectors.toList());
     }
 
     @GetMapping(params = {"pageindex", "pagesize"})
-    public List<Employee> getEmployeesByPage(@RequestParam(name = "pageindex", required = true) Integer page,
+    public List<EmployeeResponse> getEmployeesByPage(@RequestParam(name = "pageindex", required = true) Integer page,
                                              @RequestParam(name = "pagesize", required = true) Integer pageSize) {
-        return employeeService.getEmployeesByPage(page, pageSize);
+        return employeeService.getEmployeesByPage(page, pageSize).stream()
+                .map(employee -> employeeMapper.toResponse(employee))
+                .collect(Collectors.toList());
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Employee addEmployee(@RequestBody EmployeeRequest employeeRequest) {
-        return employeeService.addEmployee(employeeMapper.toEntity(employeeRequest));
+    public EmployeeResponse addEmployee(@RequestBody EmployeeRequest employeeRequest) {
+        return employeeMapper.toResponse(employeeService.addEmployee(employeeMapper.toEntity(employeeRequest)));
     }
 
     @PutMapping(path = "/{employeeId}")
