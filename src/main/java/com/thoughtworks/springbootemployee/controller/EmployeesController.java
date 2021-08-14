@@ -1,7 +1,6 @@
 package com.thoughtworks.springbootemployee.controller;
 
 import com.thoughtworks.springbootemployee.mapper.EmployeeMapper;
-import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.model.EmployeeRequest;
 import com.thoughtworks.springbootemployee.model.EmployeeResponse;
 import com.thoughtworks.springbootemployee.service.EmployeeService;
@@ -10,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/employees")
@@ -22,9 +20,7 @@ public class EmployeesController {
 
     @GetMapping
     public List<EmployeeResponse> getAllEmployees() {
-        return employeeService.getAllEmployees().stream()
-                .map(employee -> employeeMapper.toResponse(employee))
-                .collect(Collectors.toList());
+        return employeeMapper.toResponse(employeeService.getAllEmployees());
     }
 
     @GetMapping(path = "/{employeeId}")
@@ -35,17 +31,13 @@ public class EmployeesController {
 
     @GetMapping(params = {"gender"})
     public List<EmployeeResponse> getEmployeesByGender(@RequestParam(name = "gender", required = true) String gender) {
-        return employeeService.getEmployeesByGender(gender).stream()
-                .map(employee -> employeeMapper.toResponse(employee))
-                .collect(Collectors.toList());
+        return employeeMapper.toResponse(employeeService.getEmployeesByGender(gender));
     }
 
     @GetMapping(params = {"pageindex", "pagesize"})
     public List<EmployeeResponse> getEmployeesByPage(@RequestParam(name = "pageindex", required = true) Integer page,
-                                             @RequestParam(name = "pagesize", required = true) Integer pageSize) {
-        return employeeService.getEmployeesByPage(page, pageSize).stream()
-                .map(employee -> employeeMapper.toResponse(employee))
-                .collect(Collectors.toList());
+                                                     @RequestParam(name = "pagesize", required = true) Integer pageSize) {
+        return employeeMapper.toResponse(employeeService.getEmployeesByPage(page, pageSize));
     }
 
     @PostMapping
