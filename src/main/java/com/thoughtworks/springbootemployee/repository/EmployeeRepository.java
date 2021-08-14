@@ -8,6 +8,5 @@ import java.util.List;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
-    List<Employee> findAllById(Integer Id);
     List<Employee> findAllByGender(String gender);
 }
