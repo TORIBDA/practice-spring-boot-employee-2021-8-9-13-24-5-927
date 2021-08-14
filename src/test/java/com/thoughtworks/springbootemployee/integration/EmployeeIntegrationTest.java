@@ -16,9 +16,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasSize;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 //TODO: remove unused imports
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -32,17 +33,17 @@ public class EmployeeIntegrationTest {
 
     @BeforeEach
     public void setupData() {
-        dummyEmployees = Arrays.asList((new Employee(1, "Debids", 19, "male", 1000000, 1)),
-                (new Employee(2, "Joanna", 21, "female", 1000000, 1)),
-                (new Employee(3, "Dibidi", 18, "female", 1234, 1)),
-                (new Employee(4, "Barnakol", 21, "male", 1000000, 2)),
-                (new Employee(5, "Bobby", 18, "male", 1000000, 2)));
-        //dummyEmployees.stream().forEach(employee -> employeeRepository.save(employee));
+        dummyEmployees = Arrays.asList((new Employee("Debids", 19, "male", 1000000, 1)),
+                (new Employee("Joanna", 21, "female", 1000000, 1)),
+                (new Employee("Dibidi", 18, "female", 1234, 1)),
+                (new Employee("Barnakol", 21, "male", 1000000, 2)),
+                (new Employee("Bobby", 18, "male", 1000000, 2)));
+        employeeRepository.saveAll(dummyEmployees);
     }
 
     @AfterEach
-    public void  deleteDataAfter() {
-        //employeeRepository.deleteAll();
+    public void deleteDataAfter() {
+        employeeRepository.deleteAll();
     }
 
     @Test
@@ -66,7 +67,8 @@ public class EmployeeIntegrationTest {
                 .andExpect(jsonPath("$.name").value("Debids"))
                 .andExpect(jsonPath("$.age").value(19))
                 .andExpect(jsonPath("$.gender").value("male"))
-                .andExpect(jsonPath("$.salary").value(1000000));
+                .andExpect(jsonPath("$.salary").value(1000000))
+                .andExpect(jsonPath("$.company_id").value(1));
     }
 
     @Test

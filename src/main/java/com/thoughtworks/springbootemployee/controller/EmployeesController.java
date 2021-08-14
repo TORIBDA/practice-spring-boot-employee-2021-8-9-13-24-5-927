@@ -25,6 +25,7 @@ public class EmployeesController {
     }
 
     @GetMapping(path = "/{employeeId}")
+    @ResponseStatus(HttpStatus.OK)
     public EmployeeResponse findById(@PathVariable Integer employeeId) {
         return employeeMapper.toResponse(employeeService.findById(employeeId));
     }
