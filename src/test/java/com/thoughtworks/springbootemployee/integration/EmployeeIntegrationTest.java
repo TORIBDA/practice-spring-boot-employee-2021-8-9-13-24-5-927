@@ -84,7 +84,7 @@ public class EmployeeIntegrationTest {
         int pageSize = 2;
         int pageIndex = 1;
         mockMvc.perform(MockMvcRequestBuilders.get("/employees")
-                .param("pageindex", String.valueOf(pageIndex)).param("pagesize", String.valueOf(pageSize))
+                .param("pageIndex", String.valueOf(pageIndex)).param("pageSize", String.valueOf(pageSize))
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.*", hasSize(pageSize)));
@@ -103,6 +103,7 @@ public class EmployeeIntegrationTest {
                 "}";
 
         //when
+        //TODO: change company id
         mockMvc.perform(MockMvcRequestBuilders.post("/employees")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(employee))

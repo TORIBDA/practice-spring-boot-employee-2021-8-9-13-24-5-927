@@ -34,9 +34,9 @@ public class EmployeesController {
         return employeeMapper.toResponse(employeeService.getEmployeesByGender(gender));
     }
 
-    @GetMapping(params = {"pageindex", "pagesize"})
-    public List<EmployeeResponse> getEmployeesByPage(@RequestParam(name = "pageindex", required = true) Integer page,
-                                                     @RequestParam(name = "pagesize", required = true) Integer pageSize) {
+    @GetMapping(params = {"pageIndex", "pageSize"})
+    public List<EmployeeResponse> getEmployeesByPage(@RequestParam(name = "pageIndex", required = true) Integer page,
+                                                     @RequestParam(name = "pageSize", required = true) Integer pageSize) {
         return employeeMapper.toResponse(employeeService.getEmployeesByPage(page, pageSize));
     }
 
@@ -49,7 +49,8 @@ public class EmployeesController {
     @PutMapping(path = "/{employeeId}")
     @ResponseStatus(HttpStatus.OK)
     public EmployeeResponse updateEmployee(@PathVariable Integer employeeId, @RequestBody EmployeeRequest employeeRequest) {
-        return employeeMapper.toResponse(employeeService.updateEmployee(employeeId, employeeMapper.toEntity(employeeRequest)));
+        return employeeMapper.toResponse(employeeService.updateEmployee(employeeId,
+                employeeMapper.toEntity(employeeRequest)));
     }
 
     @DeleteMapping(path = "/{employeeId}")

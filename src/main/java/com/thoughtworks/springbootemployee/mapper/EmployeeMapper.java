@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class EmployeeMapper {
@@ -24,8 +25,8 @@ public class EmployeeMapper {
     }
 
     public List<EmployeeResponse> toResponse(List<Employee> employees) {
-        List<EmployeeResponse> employeeResponses = new LinkedList<>();
-        employees.forEach(employee -> employeeResponses.add(toResponse(employee)));
-        return employeeResponses;
+        return employees.stream()
+                .map(this::toResponse)
+                .collect(Collectors.toList());
     }
 }
